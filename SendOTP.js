@@ -23,6 +23,10 @@ export default function SendOTP() {
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
   };
 
+  const handleReset = () => {
+    setSeconds(60);
+  };
+
   return (
     <ScrollView style={styles.container}>
 
@@ -52,7 +56,7 @@ export default function SendOTP() {
 
       </View>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleReset}>
         <View style={{flexDirection: 'row',marginTop: 10, alignSelf: 'center'}}>
           <Text style={{fontWeight: '400',fontSize: 18}}>Gửi lại mã</Text>
           <Text style={{fontWeight: '400',fontSize: 18, color: '#4BADF3',marginLeft: 4}}>{displayTime()}</Text>
