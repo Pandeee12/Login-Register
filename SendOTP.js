@@ -1,9 +1,28 @@
-import React from 'react';
+import React,{ useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { AntDesign,Feather,Octicons } from "@expo/vector-icons";
+import { AntDesign,Feather } from "@expo/vector-icons";
 import { ScrollView } from 'react-native-web';
 
 export default function SendOTP() {
+
+  const [seconds, setSeconds] = useState(60);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      }
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [seconds]);
+
+  const displayTime = () => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  };
+
   return (
     <ScrollView style={styles.container}>
 
@@ -36,7 +55,7 @@ export default function SendOTP() {
       <TouchableOpacity>
         <View style={{flexDirection: 'row',marginTop: 10, alignSelf: 'center'}}>
           <Text style={{fontWeight: '400',fontSize: 18}}>Gửi lại mã</Text>
-          <Text style={{fontWeight: '400',fontSize: 18, color: '#4BADF3',marginLeft: 4}}>00:58</Text>
+          <Text style={{fontWeight: '400',fontSize: 18, color: '#4BADF3',marginLeft: 4}}>{displayTime()}</Text>
         </View>
       </TouchableOpacity>
 
